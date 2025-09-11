@@ -46,7 +46,17 @@ class MneeService {
     return await this.mnee.transfer(request, wif, options);
   }
 
-  // Add other service methods as needed
+  async getUtxos(address, page, size, order) {
+    return await this.mnee.getUtxos(address, page, size, order);
+  }
+
+  async getEnoughUtxos(address, totalAtomicTokenAmount) {
+    return await this.mnee.getEnoughUtxos(address, totalAtomicTokenAmount);
+  }
+
+  async getAllUtxos(address) {
+    return await this.mnee.getAllUtxos(address);
+  }
 }
 
 export default new MneeService();
