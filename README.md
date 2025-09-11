@@ -14,7 +14,13 @@ Node js v18+
 Npm/yarn
 Git
 ```
-
+### Env  setup
+```bash
+PORT=<your-port>
+MNEE_ENV='sandbox'
+MNEE_API_URL=<Mnee sandbox Api Url>
+MNEE_API_KEY=<Mnee Api Key>
+```
 Explain the process step by step.
 
 ```bash
