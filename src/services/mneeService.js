@@ -81,6 +81,26 @@ class MneeService {
   async getRecentTxHistories(params) {
     return this.mnee.recentTxHistories(params);
   }
+
+  async parseTx(txid, options) {
+    return this.mnee.parseTx(txid, options);
+  }
+  
+  async parseTxFromRawTx(rawTxHex, options) {
+    return this.mnee.parseTxFromRawTx(rawTxHex, options);
+  }
+  
+  parseInscription(script) {
+    return this.mnee.parseInscription(script);
+  }
+  
+  parseCosignerScripts(scripts) {
+    return this.mnee.parseCosignerScripts(scripts);
+  }
+  
+  HDWallet(mnemonic, options) {
+    return this.mnee.HDWallet(mnemonic, options);
+  }
 }
 
 export default new MneeService();
