@@ -57,6 +57,30 @@ class MneeService {
   async getAllUtxos(address) {
     return await this.mnee.getAllUtxos(address);
   }
+
+  async transfer(request, wif, transferOptions) {
+    return this.mnee.transfer(request, wif, transferOptions);
+  }
+
+  async transferMulti(options, transferOptions) {
+    return this.mnee.transferMulti(options, transferOptions);
+  }
+
+  async submitRawTx(rawTxHex, transferOptions) {
+    return this.mnee.submitRawTx(rawTxHex, transferOptions);
+  }
+
+  async getTxStatus(ticketId) {
+    return this.mnee.getTxStatus(ticketId);
+  }
+
+  async getRecentTxHistory(address, fromScore, limit, order) {
+    return this.mnee.recentTxHistory(address, fromScore, limit, order);
+  }
+
+  async getRecentTxHistories(params) {
+    return this.mnee.recentTxHistories(params);
+  }
 }
 
 export default new MneeService();
