@@ -121,7 +121,7 @@ curl -X POST "http://<YOUR_SERVER_URL>/api/transaction/transfer-multi" \
   }
 }'
 ```
-Get Satus of transaction through ticket ID
+POST submit raw transaction Hex
 ```bash
 curl -X POST "http://<YOUR_SERVER_URL>/api/transaction/submit-rawtx" \
 -H "Content-Type: application/json" \
@@ -132,11 +132,6 @@ curl -X POST "http://<YOUR_SERVER_URL>/api/transaction/submit-rawtx" \
     "broadcast": true
   }
 }'
-
-```
-Get Satus of transaction through ticket ID
-```bash
-curl "http://<YOUR_SERVER_URL>/api/transaction/status/ticketID"
 ```
 Parse By Txid:
 ```bash
