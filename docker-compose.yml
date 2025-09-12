@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  mnee-api:
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
