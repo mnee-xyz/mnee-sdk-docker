@@ -1,6 +1,3 @@
-export const MIN_TRANSFER_AMOUNT = 0.00001;
-export const MNEE_DECIMALS = 5;
-
 // PROD
 export const PROD_ENV = "production";
 export const MNEE_PROXY_API_URL = "https://proxy-api.mnee.net";
