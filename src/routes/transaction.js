@@ -10,22 +10,255 @@ import {
 
 const router = express.Router();
 
-// Get recent transaction history for a single address
+/**
+ * @swagger
+ * /api/transaction/{address}:
+ *   get:
+ *     summary: Get recent transaction history for a single address
+ *     tags:
+ *       - Transaction
+ *     parameters:
+ *       - in: path
+ *         name: address
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Address to fetch transaction history
+ *       - in: query
+ *         name: fromScore
+ *         schema:
+ *           type: number
+ *         description: Pagination cursor from score
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: number
+ *           example: 10
+ *         description: Number of results to return
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *         description: Sorting order
+ *     responses:
+ *       200:
+ *         description: Recent transaction history
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       400:
+ *         description: Invalid parameters
+ */
 router.get('/:address', getRecentTxHistory);
 
-// Get transaction histories for multiple addresses
+/**
+ * @swagger
+ * /api/transaction/histories:
+ *   post:
+ *     summary: Get recent transaction histories for multiple addresses
+ *     tags:
+ *       - Transaction
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               addresses:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     address:
+ *                       type: string
+ *                       example: your-address1
+ *                     fromScore:
+ *                       type: number
+ *                       example: 0
+ *                     limit:
+ *                       type: number
+ *                       example: 10
+ *     responses:
+ *       200:
+ *         description: Transaction histories of multiple addresses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       400:
+ *         description: Invalid input data
+ */
 router.post('/histories', getRecentTxHistories);
 
-// Get status of a transfer by ticketId
+/**
+ * @swagger
+ * /api/transaction/status/{ticketId}:
+ *   get:
+ *     summary: Get status of a transfer by ticketId
+ *     tags:
+ *       - Transaction
+ *     parameters:
+ *       - in: path
+ *         name: ticketId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ticket ID to get status for
+ *     responses:
+ *       200:
+ *         description: Status of transaction
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       400:
+ *         description: Invalid ticketId
+ */
 router.get('/status/:ticketId', getTxStatus);
 
-// POST transfer using single input
+/**
+ * @swagger
+ * /api/transaction/transfer:
+ *   post:
+ *     summary: Transfer MNEE tokens using single input
+ *     tags:
+ *       - Transaction
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               request:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     address:
+ *                       type: string
+ *                     amount:
+ *                       type: number
+ *               wif:
+ *                 type: string
+ *               transferOptions:
+ *                 type: object
+ *                 properties:
+ *                   callbackUrl:
+ *                     type: string
+ *                   broadcast:
+ *                     type: boolean
+ *     responses:
+ *       200:
+ *         description: Transfer successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       400:
+ *         description: Invalid input data
+ */
 router.post('/transfer', transfer);
 
-// POST transfer using multiple inputs
+/**
+ * @swagger
+ * /api/transaction/transfer-multi:
+ *   post:
+ *     summary: Transfer MNEE tokens from multiple source UTXOs
+ *     tags:
+ *       - Transaction
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               options:
+ *                 type: object
+ *                 properties:
+ *                   inputs:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         txid:
+ *                           type: string
+ *                         vout:
+ *                           type: number
+ *                         wif:
+ *                           type: string
+ *                   recipients:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         address:
+ *                           type: string
+ *                         amount:
+ *                           type: number
+ *                   changeAddress:
+ *                     type: string
+ *               transferOptions:
+ *                 type: object
+ *                 properties:
+ *                   callbackUrl:
+ *                     type: string
+ *                   broadcast:
+ *                     type: boolean
+ *     responses:
+ *       200:
+ *         description: Multi-transfer successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       400:
+ *         description: Invalid input data
+ */
 router.post('/transfer-multi', transferMulti);
 
-// POST submit raw transaction hex
+/**
+ * @swagger
+ * /api/transaction/submit-rawtx:
+ *   post:
+ *     summary: Submit raw transaction hex
+ *     tags:
+ *       - Transaction
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               rawTxHex:
+ *                 type: string
+ *                 example: "raw transaction hex string"
+ *               transferOptions:
+ *                 type: object
+ *                 properties:
+ *                   callbackUrl:
+ *                     type: string
+ *                   broadcast:
+ *                     type: boolean
+ *     responses:
+ *       200:
+ *         description: Raw transaction submitted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       400:
+ *         description: Invalid rawTxHex or transfer options
+ */
 router.post('/submit-rawtx', submitRawTx);
 
 export default router;
