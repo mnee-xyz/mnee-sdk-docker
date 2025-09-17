@@ -24,8 +24,8 @@ MNEE_API_KEY=<Mnee Api Key>
 Explain the process step by step.
 
 ```bash
-https://github.com/sharathkariyappa/mneeapi.git
-cd mneeapi
+https://github.com/mnee-xyz/mnee-sdk-docker.git
+cd mnee-sdk-docker
 npm install
 ```
 
@@ -35,6 +35,11 @@ Explain how to test the project and give some example.
 
 ```bash
 node server.js
+```
+Docker setup
+
+```bash
+docker-compose up --build
 ```
 
 ## Endpoints
