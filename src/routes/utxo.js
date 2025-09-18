@@ -3,7 +3,6 @@ import { getUtxos, getEnoughUtxos, getAllUtxos } from "../controllers/utxoContro
 
 const router = express.Router();
 
-// GET paginated UTXOs: /api/utxos/:address?page=1&size=10&order=asc
 /**
  * @swagger
  * /api/utxos/{address}:
@@ -64,7 +63,6 @@ const router = express.Router();
  */
 router.get("/:address", getUtxos);
 
-// GET enough UTXOs to cover amount: /api/utxos/:address/enough?amount=10000
 /**
  * @swagger
  * /api/utxos/{address}/enough:
@@ -109,7 +107,6 @@ router.get("/:address", getUtxos);
  */
 router.get("/:address/enough", getEnoughUtxos);
 
-// GET all UTXOs: /api/utxos/:address/all
 /**
  * @swagger
  * /api/utxos/{address}/all:
