@@ -3,8 +3,7 @@ import {
   parseTx,
   parseTxFromRaw,
   parseInscription,
-  parseCosignerScripts,
-  generateHDWallet
+  parseCosignerScripts
 } from '../controllers/parseController.js'
 
 const router = express.Router();
@@ -131,46 +130,5 @@ router.post('/inscription', parseInscription);
  *         description: Invalid input data
  */
 router.post('/cosigner-scripts', parseCosignerScripts);
-
-/**
- * @swagger
- * /api/parse/hdwallet:
- *   post:
- *     summary: Generate HD Wallet
- *     tags:
- *       - Parse
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               mnemonic:
- *                 type: string
- *                 example: "your custom mnemonic code"
- *               options:
- *                 type: object
- *                 properties:
- *                   derivationPath:
- *                     type: string
- *                     example: "m/44'/236'/0'"
- *                   cacheSize:
- *                     type: number
- *                     example: 1000
- *                   network:
- *                     type: string
- *                     example: "mainnet"
- *     responses:
- *       200:
- *         description: Successfully generated HD Wallet
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *       400:
- *         description: Invalid input data
- */
-router.post('/hdwallet', generateHDWallet);
 
 export default router;

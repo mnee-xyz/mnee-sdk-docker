@@ -52,16 +52,3 @@ export const parseCosignerScripts = (req, res, next) => {
     next(error);
   }
 };
-
-// Generate HDWallet instance (Example purpose only)
-export const generateHDWallet = (req, res, next) => {
-  try {
-    const { mnemonic, options } = req.body;
-
-    const hdWallet = mneeService.HDWallet(mnemonic, options);
-    res.json({ success: true, data: 'HDWallet instance created' });
-  } catch (error) {
-    console.error('Error generating HDWallet:', error);
-    next(error);
-  }
-};
