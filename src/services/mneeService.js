@@ -1,12 +1,12 @@
-import Mnee from '@mnee/ts-sdk';
+import Mnee from "@mnee/ts-sdk";
 import {
   MNEE_PROXY_API_URL,
   PUBLIC_PROD_MNEE_API_TOKEN,
   PROD_ENV,
   SANDBOX_MNEE_API_URL,
   PUBLIC_SANDBOX_MNEE_API_TOKEN,
-} from '../config/mnee.js';
-import dotenv from 'dotenv';
+} from "../config/mnee.js";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -17,14 +17,16 @@ class MneeService {
     let apiUrl;
     let apiKey;
 
-    if (env === 'production') {
+    if (env === "production") {
       apiUrl = process.env.MNEE_API_URL || MNEE_PROXY_API_URL;
       apiKey = process.env.MNEE_API_KEY || PUBLIC_PROD_MNEE_API_TOKEN;
-    } else if (env === 'sandbox') {
+    } else if (env === "sandbox") {
       apiUrl = process.env.MNEE_API_URL || SANDBOX_MNEE_API_URL;
       apiKey = process.env.MNEE_API_KEY || PUBLIC_SANDBOX_MNEE_API_TOKEN;
     } else {
-      throw new Error('Invalid environment. Must be either "production" or "sandbox"');
+      throw new Error(
+        'Invalid environment. Must be either "production" or "sandbox"'
+      );
     }
 
     this.mnee = new Mnee({
@@ -32,6 +34,10 @@ class MneeService {
       apiKey,
       environment: env,
     });
+  }
+
+  async config() {
+    return this.mnee.config();
   }
 
   async getBalance(address) {
@@ -85,21 +91,29 @@ class MneeService {
   async parseTx(txid, options) {
     return this.mnee.parseTx(txid, options);
   }
-  
+
   async parseTxFromRawTx(rawTxHex, options) {
     return this.mnee.parseTxFromRawTx(rawTxHex, options);
   }
-  
+
   parseInscription(script) {
     return this.mnee.parseInscription(script);
   }
-  
+
   parseCosignerScripts(scripts) {
     return this.mnee.parseCosignerScripts(scripts);
   }
-  
-  HDWallet(mnemonic, options) {
-    return this.mnee.HDWallet(mnemonic, options);
+
+  async validateMneeTx(rawTxHex, request) {
+     return await this.mnee.validateMneeTx(rawTxHex, request);
+  }
+
+  toAtomicAmount(amount) {
+    return this.mnee.toAtomicAmount(amount);
+  }
+
+  fromAtomicAmount(atomicAmount) {
+    return this.mnee.fromAtomicAmount(atomicAmount);
   }
 }
 

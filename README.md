@@ -1,7 +1,8 @@
 # MNEE SDK API Wrapper
 
-MNEE SDK API Wrapper is a Node.js + Express server that wraps the official [MNEE-SDK](https://www.npmjs.com/package/@mnee/ts-sdk)
- and exposes RESTful endpoints for easy integration. It provides all major SDK functionalities including Balance, UTXOs, Transactions, and Wallet Management.
+MNEE SDK API Wrapper is a Node.js + Express server that wraps the official [MNEE-SDK](https://www.npmjs.com/package/@mnee/ts-sdk) and exposes RESTful endpoints for easy integration. It provides all major SDK functionalities including Balance, UTXOs, Transactions, and Wallet Management.
+
+For complete MNEE documentation and API reference, visit [https://docs.mnee.io](https://docs.mnee.io).
 
 ## Instalation
 
@@ -31,16 +32,26 @@ npm install
 
 ## Usage
 
-Explain how to test the project and give some example.
+Start the server:
 
 ```bash
 node server.js
 ```
-Docker setup
+
+Docker setup:
 
 ```bash
 docker-compose up --build
 ```
+
+### API Documentation
+
+Interactive Swagger documentation is available at:
+```
+http://localhost:5000/api-docs
+```
+
+Access this URL in your browser to explore all available endpoints, view request/response schemas, and test API calls directly from the documentation interface.
 
 ## Endpoints
 
@@ -169,19 +180,51 @@ curl -X POST "http://<YOUR_SERVER_URL>/api/parse/cosigner-scripts" \
 }'
 
 ```
-Generate HDWallet:
+Get MNEE Configuration:
 ```bash
-curl -X POST "http://<YOUR_SERVER_URL>/api/parse/hdwallet" \
--H "Content-Type: application/json" \
--d "{
-  \"mnemonic\": \"your custom mnemonic code\",
-  \"options\": {
-    \"derivationPath\": \"m/44'/236'/0'\",
-    \"cacheSize\": 1000,
-    \"network\": \"network of your choice\"
-  }
-}"
-
+curl "http://<YOUR_SERVER_URL>/api/config"
 ```
+Validate MNEE Transaction:
+```bash
+curl -X POST "http://<YOUR_SERVER_URL>/api/config/validate" \
+-H "Content-Type: application/json" \
+-d '{
+  "rawTxHex": "0100000001...",
+  "request": [
+    { "address": "recipient-address", "amount": 100 }
+  ]
+}'
+```
+Convert to Atomic Amount:
+```bash
+curl -X POST "http://<YOUR_SERVER_URL>/api/config/to-atomic" \
+-H "Content-Type: application/json" \
+-d '{
+  "amount": 1.5
+}'
+```
+Convert from Atomic Amount:
+```bash
+curl -X POST "http://<YOUR_SERVER_URL>/api/config/from-atomic" \
+-H "Content-Type: application/json" \
+-d '{
+  "atomicAmount": 150000
+}'
+```
+
+## Unsupported SDK Features
+
+The following MNEE SDK features are **not currently supported** in this API wrapper:
+
+### HDWallet
+The SDK's `HDWallet` class provides hierarchical deterministic wallet functionality with methods like `deriveAddress(index)` and `getPrivateKey(index)`. This requires maintaining stateful instances which doesn't fit the stateless REST API pattern.
+
+**Recommendation:** Use the SDK directly in your application for HDWallet operations.
+
+### Batch Operations
+The SDK's `batch()` method returns a Batch instance for performing multiple operations efficiently. This also requires maintaining state between requests.
+
+**Recommendation:** Use the SDK directly for batch operations, or make individual API calls for each operation.
+
 ## License
 MIT
