@@ -108,7 +108,7 @@ router.post('/validate', validateMneeTx);
  *             properties:
  *               amount:
  *                 type: number
- *                 example: 1.5
+ *                 example: 0
  *                 description: Decimal amount to convert
  *     responses:
  *       200:
@@ -120,14 +120,26 @@ router.post('/validate', validateMneeTx);
  *               properties:
  *                 success:
  *                   type: boolean
+ *                   example: true
  *                 data:
  *                   type: object
  *                   properties:
  *                     atomicAmount:
  *                       type: number
- *                       example: 150000
+ *                       example: 0
  *       400:
- *         description: Invalid amount
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 error:
+ *                   type: string
+ *                   example: "Amount must be a number"
  */
 router.post('/to-atomic', toAtomicAmount);
 
@@ -147,7 +159,7 @@ router.post('/to-atomic', toAtomicAmount);
  *             properties:
  *               atomicAmount:
  *                 type: number
- *                 example: 150000
+ *                 example: 0
  *                 description: Atomic amount to convert
  *     responses:
  *       200:
@@ -164,9 +176,20 @@ router.post('/to-atomic', toAtomicAmount);
  *                   properties:
  *                     amount:
  *                       type: number
- *                       example: 1.5
+ *                       example: 0
  *       400:
- *         description: Invalid atomic amount
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 error:
+ *                   type: string
+ *                   example: "Amount must be a number"
  */
 router.post('/from-atomic', fromAtomicAmount);
 

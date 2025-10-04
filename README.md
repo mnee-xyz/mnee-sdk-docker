@@ -19,10 +19,10 @@ Git
 ```bash
 PORT=<your-port>
 MNEE_ENV='sandbox'
-MNEE_API_URL=<Mnee sandbox Api Url>
-MNEE_API_KEY=<Mnee Api Key>
+MNEE_API_URL=https://sandbox-proxy-api.mnee.net
+MNEE_API_KEY=54f1fd1688ba66a58a67675b82feb93e
 ```
-Explain the process step by step.
+Local Setup guide.
 
 ```bash
 https://github.com/mnee-xyz/mnee-sdk-docker.git
@@ -48,7 +48,7 @@ docker-compose up --build
 
 Interactive Swagger documentation is available at:
 ```
-http://localhost:5000/api-docs
+http://localhost:<your-port>/api-docs
 ```
 
 Access this URL in your browser to explore all available endpoints, view request/response schemas, and test API calls directly from the documentation interface.
