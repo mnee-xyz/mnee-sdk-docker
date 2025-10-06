@@ -8,50 +8,59 @@ For complete MNEE documentation and API reference, visit [https://docs.mnee.io](
 
 Instructions on how to get a copy of the project and running on your local machine.
 
-### Prerequisites
-
+### Prerequisites:
+Before running the project, make sure the following tools are installed on your system.
+Install Node.js (v18 or higher) & npm
+Windows:
 ```bash
-Node js v18+
-Npm/yarn
-Git
+# Download and install from official site
+https://nodejs.org/en/download/
 ```
-### Env  setup
+macOS:
 ```bash
-PORT=<your-port>
-MNEE_ENV='sandbox'
-MNEE_API_URL=https://sandbox-proxy-api.mnee.net
-MNEE_API_KEY=54f1fd1688ba66a58a67675b82feb93e
+# Using Homebrew
+brew install node
 ```
-Local Setup guide.
+Linux (Ubuntu):
+```bash
+sudo apt update
+sudo apt install -y nodejs npm
+```
 
+### Local Setup Guide:
+Clone the repository and install dependencies:
 ```bash
 https://github.com/mnee-xyz/mnee-sdk-docker.git
 cd mnee-sdk-docker
 npm install
 ```
 
-## Usage
+### Environment Setup:
 
-Start the server:
-
+Create a .env file in the root directory and add the following environment variables:
 ```bash
-node server.js
+PORT=<your-port>
+MNEE_ENV='sandbox'
+MNEE_API_URL=https://sandbox-proxy-api.mnee.net
+MNEE_API_KEY=54f1fd1688ba66a58a67675b82feb93e
 ```
-
-Docker setup:
-
+After setting up the environment file, start the server with:
 ```bash
-docker-compose up --build
+node server.js 
+# or
+npm run start
 ```
-
-### API Documentation
-
-Interactive Swagger documentation is available at:
+Once the server is running, you can access the API Swagger documentation at:
 ```
 http://localhost:<your-port>/api-docs
 ```
+Use this Swagger UI to explore available endpoints, view request/response schemas, and test API calls directly.
 
-Access this URL in your browser to explore all available endpoints, view request/response schemas, and test API calls directly from the documentation interface.
+### Docker Setup:
+Run the application using Docker:
+```bash
+docker-compose up --build
+```
 
 ## Endpoints
 
