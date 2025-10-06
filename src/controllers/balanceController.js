@@ -17,6 +17,11 @@ export const getBalance = async (req, res, next) => {
     });
   } catch (error) {
     console.error("Error fetching balance:", error);
+    if (error.message.includes("Invalid Bitcoin address")) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -41,6 +46,11 @@ export const getBalances = async (req, res, next) => {
     });
   } catch (error) {
     console.error("Error fetching balances:", error);
+    if (error.message.includes("You must pass at least 1 valid address")) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };

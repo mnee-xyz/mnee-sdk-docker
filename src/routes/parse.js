@@ -94,7 +94,20 @@ const router = express.Router();
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "A valid transaction ID is required"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/:txid', parseTx);
 
@@ -184,7 +197,20 @@ router.get('/:txid', parseTx);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Invalid raw transaction hex"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/from-raw', parseTxFromRaw);
 
@@ -213,7 +239,31 @@ router.post('/from-raw', parseTxFromRaw);
  *             schema:
  *               type: object
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/inscription', parseInscription);
 
@@ -244,7 +294,31 @@ router.post('/inscription', parseInscription);
  *             schema:
  *               type: object
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/cosigner-scripts', parseCosignerScripts);
 

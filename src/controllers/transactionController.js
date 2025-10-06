@@ -16,6 +16,11 @@ export const getRecentTxHistory = async (req, res, next) => {
     res.json({ success: true, data: history });
   } catch (error) {
     console.error('Error fetching recent transaction history:', error);
+    if (error.message.includes("Invalid Bitcoin address")) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -32,6 +37,11 @@ export const getRecentTxHistories = async (req, res, next) => {
     res.json({ success: true, data: histories });
   } catch (error) {
     console.error('Error fetching multiple transaction histories:', error);
+    if (error.message.includes("You must pass at least 1 valid address")) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -44,6 +54,11 @@ export const getTxStatus = async (req, res, next) => {
     res.json({ success: true, data: status });
   } catch (error) {
     console.error('Error fetching transaction status:', error);
+    if (error.message === "Failed to get transaction status: 400") {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -61,6 +76,11 @@ export const transfer = async (req, res, next) => {
       res.json({ success: true, data: result });
     } catch (error) {
       console.error('Error executing transfer:', error);
+      if (error.message.includes("Invalid Bitcoin address")) {
+        error.statusCode = 400;
+      } else {
+        error.statusCode = 500;
+      }
       next(error);
     }
   };
@@ -95,6 +115,11 @@ export const transfer = async (req, res, next) => {
       res.json({ success: true, data: result });
     } catch (error) {
       console.error('Error submitting raw transaction:', error);
+      if (error.message.includes("Failed to submit transaction: 400")) {
+        error.statusCode = 400;
+      } else {
+        error.statusCode = 500;
+      }
       next(error);
     }
   };

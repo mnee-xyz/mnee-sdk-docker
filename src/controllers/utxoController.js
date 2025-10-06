@@ -15,6 +15,11 @@ export const getUtxos = async (req, res, next) => {
     res.json({ success: true, data: utxos });
   } catch (error) {
     console.error("Error fetching UTXOs:", error);
+    if (error.message.includes("Invalid Bitcoin address")) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -34,6 +39,11 @@ export const getEnoughUtxos = async (req, res, next) => {
     res.json({ success: true, data: utxos });
   } catch (error) {
     console.error("Error fetching enough UTXOs:", error);
+    if (error.message.includes("Invalid Bitcoin address")) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -52,6 +62,11 @@ export const getAllUtxos = async (req, res, next) => {
     res.json({ success: true, data: utxos });
   } catch (error) {
     console.error("Error fetching all UTXOs:", error);
+    if (error.message.includes("Invalid Bitcoin address")) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };

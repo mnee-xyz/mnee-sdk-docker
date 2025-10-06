@@ -99,7 +99,7 @@ const router = express.Router();
  *                       type: number
  *                       example: 0
  *       500:
- *         description: internal server error
+ *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
@@ -110,7 +110,20 @@ const router = express.Router();
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Invalid Bitcoin address: string"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/:address', getRecentTxHistory);
 
@@ -202,7 +215,7 @@ router.get('/:address', getRecentTxHistory);
  *                         type: number
  *                         example: 0
  *       500:
- *         description: internal server error
+ *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
@@ -213,7 +226,20 @@ router.get('/:address', getRecentTxHistory);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "You must pass at least 1 valid address"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/histories', getRecentTxHistories);
 
@@ -273,7 +299,7 @@ router.post('/histories', getRecentTxHistories);
  *                       nullable: true
  *                       example: null
  *       500:
- *         description: internal Server Error
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
@@ -284,7 +310,20 @@ router.post('/histories', getRecentTxHistories);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Failed to get transaction status: 400"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/status/:ticketId', getTxStatus);
 
@@ -328,7 +367,31 @@ router.get('/status/:ticketId', getTxStatus);
  *             schema:
  *               type: object
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/transfer', transfer);
 
@@ -386,7 +449,31 @@ router.post('/transfer', transfer);
  *             schema:
  *               type: object
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/transfer-multi', transferMulti);
 
@@ -429,7 +516,7 @@ router.post('/transfer-multi', transferMulti);
  *                   type: string
  *                   example: "string"
  *       500:
- *         description: internal server error
+ *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
@@ -440,7 +527,20 @@ router.post('/transfer-multi', transferMulti);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Failed to submit transaction: 400"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/submit-rawtx', submitRawTx);
 

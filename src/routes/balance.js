@@ -52,7 +52,20 @@ const router = express.Router();
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Invalid Bitcoin address: string"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/:address', getBalance);
 
@@ -108,7 +121,20 @@ router.get('/:address', getBalance);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "You must pass at least 1 valid address"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/', getBalances);
 

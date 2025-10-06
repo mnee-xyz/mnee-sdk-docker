@@ -122,7 +122,20 @@ const router = express.Router();
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Invalid Bitcoin address: string"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get("/:address", getUtxos);
 
@@ -229,7 +242,20 @@ router.get("/:address", getUtxos);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Insufficient MNEE balance. Max transfer amount: 0"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get("/:address/enough", getEnoughUtxos);
 /**
@@ -323,7 +349,20 @@ router.get("/:address/enough", getEnoughUtxos);
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Invalid Bitcoin address: string"
+ *                   example: "string"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 
 router.get("/:address/all", getAllUtxos);
