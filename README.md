@@ -10,7 +10,9 @@ Instructions on how to get a copy of the project and running on your local machi
 
 ### Prerequisites:
 Before running the project, make sure the following tools are installed on your system.
-Install Node.js (v18 or higher) & npm
+
+Install Node.js (v18 or higher) & npm.
+
 Windows:
 ```bash
 # Download and install from official site

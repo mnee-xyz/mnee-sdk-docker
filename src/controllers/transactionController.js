@@ -76,7 +76,7 @@ export const transfer = async (req, res, next) => {
       res.json({ success: true, data: result });
     } catch (error) {
       console.error('Error executing transfer:', error);
-      if (error.message.includes("Invalid Bitcoin address")) {
+      if (error.message.includes("Invalid recipient address") || error.message.includes("Invalid WIF key")) {
         error.statusCode = 400;
       } else {
         error.statusCode = 500;
@@ -98,6 +98,11 @@ export const transfer = async (req, res, next) => {
       res.json({ success: true, data: result });
     } catch (error) {
       console.error('Error executing transferMulti:', error);
+      if (error.message.includes("Invalid recipient address") || error.message.includes("Invalid WIF key")) {
+        error.statusCode = 400;
+      } else {
+        error.statusCode = 500;
+      }
       next(error);
     }
   };

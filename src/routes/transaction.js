@@ -366,6 +366,17 @@ router.get('/status/:ticketId', getTxStatus);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     ticketId:
+ *                       type: string
+ *                       example: "string"
+ *                      
  *       400:
  *         description: Bad Request
  *         content:
@@ -448,6 +459,16 @@ router.post('/transfer', transfer);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     ticketId:
+ *                       type: string
+ *                       example: "string"
  *       400:
  *         description: Bad Request
  *         content:
@@ -502,19 +523,25 @@ router.post('/transfer-multi', transferMulti);
  *                   broadcast:
  *                     type: boolean
  *     responses:
- *       200:
- *         description: Raw transaction submitted successfully
+  *       200:
+ *         description: Transfer successful
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 ticketId:
- *                   type: string
- *                   example: "string"
- *                 rawtx:
- *                   type: string
- *                   example: "string"
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     ticketId:
+ *                       type: string
+ *                       example: "string"
+ *                     rawtx:
+ *                       type: string
+ *                       example: "string"
  *       500:
  *         description: Internal server error
  *         content:
