@@ -20,6 +20,11 @@ export const validateMneeTx = async (req, res, next) => {
     res.json({ success: true, data: { isValid } });
   } catch (error) {
     console.error('Error validating MNEE transaction:', error);
+    if (error.message === "Invalid cosigner detected") {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };

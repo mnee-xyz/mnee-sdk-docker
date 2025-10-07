@@ -10,9 +10,7 @@ export const parseTx = async (req, res, next) => {
     res.json({ success: true, data: parsedTx });
   } catch (error) {
     console.error('Error parsing transaction by txid:', error);
-    if (error.message === "Failed to fetch transaction") {
-      error.statusCode = 500;
-    } else if (error.message === "A valid transaction ID is required") {
+    if (error.message === "A valid transaction ID is required") {
       error.statusCode = 400;
     } else {
       error.statusCode = 500;
@@ -30,9 +28,7 @@ export const parseTxFromRaw = async (req, res, next) => {
     res.json({ success: true, data: parsedTx });
   } catch (error) {
     console.error('Error parsing transaction from raw hex:', error);
-    if (error.message === "Invalid raw transaction hex") {
-      error.statusCode = 500;
-    } else if (error.message === "A valid raw transaction is required") {
+    if ((error.message === "Invalid raw transaction hex") || error.message.includes("A valid raw transaction is required")) {
       error.statusCode = 400;
     } else {
       error.statusCode = 500;

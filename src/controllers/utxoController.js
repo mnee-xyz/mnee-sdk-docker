@@ -15,7 +15,12 @@ export const getUtxos = async (req, res, next) => {
     res.json({ success: true, data: utxos });
   } catch (error) {
     console.error("Error fetching UTXOs:", error);
-    if (error.message.includes("Invalid Bitcoin address")) {
+    const badRequestMessages = [
+      "Invalid Bitcoin address",
+      "Invalid API key",
+      "No valid Bitcoin addresses provided"
+    ];
+    if (badRequestMessages.some(msg => error.message.includes(msg))) {
       error.statusCode = 400;
     } else {
       error.statusCode = 500;
@@ -39,7 +44,12 @@ export const getEnoughUtxos = async (req, res, next) => {
     res.json({ success: true, data: utxos });
   } catch (error) {
     console.error("Error fetching enough UTXOs:", error);
-    if (error.message.includes("Invalid Bitcoin address")) {
+    const badRequestMessages = [
+      "Invalid Bitcoin address",
+      "Fee not found",
+      "Insufficient MNEE balance. Max transfer amount"
+    ];
+    if (badRequestMessages.some(msg => error.message.includes(msg))) {
       error.statusCode = 400;
     } else {
       error.statusCode = 500;
@@ -62,7 +72,12 @@ export const getAllUtxos = async (req, res, next) => {
     res.json({ success: true, data: utxos });
   } catch (error) {
     console.error("Error fetching all UTXOs:", error);
-    if (error.message.includes("Invalid Bitcoin address")) {
+    const badRequestMessages = [
+      "Invalid Bitcoin address",
+      "Invalid API key",
+      "No valid Bitcoin addresses provided"
+    ];
+    if (badRequestMessages.some(msg => error.message.includes(msg))) {
       error.statusCode = 400;
     } else {
       error.statusCode = 500;

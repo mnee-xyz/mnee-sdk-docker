@@ -9,7 +9,7 @@ For complete MNEE documentation and API reference, visit [https://docs.mnee.io](
 Instructions on how to get a copy of the project and running on your local machine.
 
 ### Prerequisites:
-Before running the project, make sure the following tools are installed on your system.
+### Ensure the following tools are installed on your system, or use Docker if you prefer(Refer Docker setup)
 
 ### Install Node.js (v18 or higher) & npm.
 
