@@ -238,6 +238,33 @@ router.post('/from-raw', parseTxFromRaw);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     file:
+ *                       type: object
+ *                       properties:
+ *                         hash:
+ *                           type: string
+ *                           example: "string"
+ *                         size:
+ *                           type: integer
+ *                           example: 0
+ *                         type:
+ *                           type: string
+ *                           example: "application/bsv-20"
+ *                         content:
+ *                           type: array
+ *                           items:
+ *                             type: integer
+ *                           description: Byte array of file content
+ *                     fields:
+ *                       type: object
+ *                       example: {}
  *       400:
  *         description: Bad Request
  *         content:
@@ -293,6 +320,13 @@ router.post('/inscription', parseInscription);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   example: []
  *       400:
  *         description: Bad Request
  *         content:
