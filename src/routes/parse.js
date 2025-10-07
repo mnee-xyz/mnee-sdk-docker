@@ -26,16 +26,88 @@ const router = express.Router();
  *         name: includeRaw
  *         schema:
  *           type: boolean
- *         description: Whether to include raw transaction data
+ *           example: false
+ *         description: Whether to include raw transaction data (true = include, false = exclude)
  *     responses:
  *       200:
- *         description: Successfully parsed transaction
+ *         description: Successfully parsed transaction (includeRaw=false)
  *         content:
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     txid:
+ *                       type: string
+ *                       example: "string"
+ *                     environment:
+ *                       type: string
+ *                       example: "string"
+ *                     type:
+ *                       type: string
+ *                       example: "transfer"
+ *                     inputs:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           address:
+ *                             type: string
+ *                             example: "string"
+ *                           amount:
+ *                             type: number
+ *                             example: 0
+ *                     outputs:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           address:
+ *                             type: string
+ *                             example: "string"
+ *                           amount:
+ *                             type: number
+ *                             example: 0
+ *                     isValid:
+ *                       type: boolean
+ *                       example: true
+ *                     inputTotal:
+ *                       type: string
+ *                       example: "0"
+ *                     outputTotal:
+ *                       type: string
+ *                       example: "0"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid txid or parameters
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/:txid', parseTx);
 
@@ -66,8 +138,79 @@ router.get('/:txid', parseTx);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     txid:
+ *                       type: string
+ *                       example: "string"
+ *                     environment:
+ *                       type: string
+ *                       example: "string"
+ *                     type:
+ *                       type: string
+ *                       example: "transfer"
+ *                     inputs:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           address:
+ *                             type: string
+ *                             example: "string"
+ *                           amount:
+ *                             type: number
+ *                             example: 0
+ *                     outputs:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           address:
+ *                             type: string
+ *                             example: "string"
+ *                           amount:
+ *                             type: number
+ *                             example: 0
+ *                     isValid:
+ *                       type: boolean
+ *                       example: true
+ *                     inputTotal:
+ *                       type: string
+ *                       example: "0"
+ *                     outputTotal:
+ *                       type: string
+ *                       example: "0"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/from-raw', parseTxFromRaw);
 
@@ -95,8 +238,59 @@ router.post('/from-raw', parseTxFromRaw);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     file:
+ *                       type: object
+ *                       properties:
+ *                         hash:
+ *                           type: string
+ *                           example: "string"
+ *                         size:
+ *                           type: integer
+ *                           example: 0
+ *                         type:
+ *                           type: string
+ *                           example: "application/bsv-20"
+ *                         content:
+ *                           type: array
+ *                           items:
+ *                             type: integer
+ *                           description: Byte array of file content
+ *                     fields:
+ *                       type: object
+ *                       example: {}
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/inscription', parseInscription);
 
@@ -126,8 +320,39 @@ router.post('/inscription', parseInscription);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   example: []
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/cosigner-scripts', parseCosignerScripts);
 

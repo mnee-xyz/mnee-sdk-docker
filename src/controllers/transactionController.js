@@ -16,6 +16,16 @@ export const getRecentTxHistory = async (req, res, next) => {
     res.json({ success: true, data: history });
   } catch (error) {
     console.error('Error fetching recent transaction history:', error);
+    const badRequestMessages = [
+      "Invalid Bitcoin address",
+      "Invalid fromScore:",
+      "Invalid limit:"
+    ];
+    if (badRequestMessages.some(msg => error.message.includes(msg))) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -32,6 +42,16 @@ export const getRecentTxHistories = async (req, res, next) => {
     res.json({ success: true, data: histories });
   } catch (error) {
     console.error('Error fetching multiple transaction histories:', error);
+    const badRequestMessages = [
+      "You must pass at least 1 valid address",
+      "Invalid fromScore:",
+      "Invalid limit:"
+    ];
+    if (badRequestMessages.some(msg => error.message.includes(msg))) {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -44,6 +64,11 @@ export const getTxStatus = async (req, res, next) => {
     res.json({ success: true, data: status });
   } catch (error) {
     console.error('Error fetching transaction status:', error);
+    if (error.message === "Failed to get transaction status: 400") {
+      error.statusCode = 400;
+    } else {
+      error.statusCode = 500;
+    }
     next(error);
   }
 };
@@ -61,6 +86,18 @@ export const transfer = async (req, res, next) => {
       res.json({ success: true, data: result });
     } catch (error) {
       console.error('Error executing transfer:', error);
+      const badRequestMessages = [
+        "Invalid recipient address",
+        "Invalid WIF key",
+        "Invalid amount for",
+        "minimum transfer amount is",
+        "Invalid amount: total must be greater than 0"
+      ];
+      if (badRequestMessages.some(msg => error.message.includes(msg))) {
+        error.statusCode = 400;
+      } else {
+        error.statusCode = 500;
+      }
       next(error);
     }
   };
@@ -78,6 +115,18 @@ export const transfer = async (req, res, next) => {
       res.json({ success: true, data: result });
     } catch (error) {
       console.error('Error executing transferMulti:', error);
+      const badRequestMessages = [
+        "Invalid recipient address",
+        "Invalid WIF key",
+        "Invalid amount for",
+        "minimum transfer amount is",
+        "Invalid amount: total must be greater than 0"
+      ];
+      if (badRequestMessages.some(msg => error.message.includes(msg))) {
+        error.statusCode = 400;
+      } else {
+        error.statusCode = 500;
+      }
       next(error);
     }
   };
@@ -95,6 +144,16 @@ export const transfer = async (req, res, next) => {
       res.json({ success: true, data: result });
     } catch (error) {
       console.error('Error submitting raw transaction:', error);
+      const badRequestMessages = [
+        "Failed to submit transaction: 400",
+        "Callback URL cannot be provided when",
+        "Raw transaction is required"
+      ];
+      if (badRequestMessages.some(msg => error.message.includes(msg))) {
+        error.statusCode = 400;
+      } else {
+        error.statusCode = 500;
+      }
       next(error);
     }
   };

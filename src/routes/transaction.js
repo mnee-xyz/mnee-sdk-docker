@@ -47,11 +47,83 @@ const router = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     address:
+ *                       type: string
+ *                       example: "string"
+ *                     history:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           txid:
+ *                             type: string
+ *                             example: "string"
+ *                           height:
+ *                             type: number
+ *                             example: 0
+ *                           type:
+ *                             type: string
+ *                             example: "string"
+ *                           status:
+ *                             type: string
+ *                             example: "string"
+ *                           amount:
+ *                             type: number
+ *                             example: 0
+ *                           fee:
+ *                             type: number
+ *                             example: 0
+ *                           score:
+ *                             type: number
+ *                             example: 0
+ *                           counterparties:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 address:
+ *                                   type: string
+ *                                   example: "string"
+ *                                 amount:
+ *                                   type: number
+ *                                   example: 0
+ *                     nextScore:
+ *                       type: number
+ *                       example: 0
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid parameters
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/:address', getRecentTxHistory);
 
@@ -76,7 +148,7 @@ router.get('/:address', getRecentTxHistory);
  *                   properties:
  *                     address:
  *                       type: string
- *                       example: your-address1
+ *                       example: "your-address1"
  *                     fromScore:
  *                       type: number
  *                       example: 0
@@ -89,11 +161,85 @@ router.get('/:address', getRecentTxHistory);
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       address:
+ *                         type: string
+ *                         example: "string"
+ *                       history:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             txid:
+ *                               type: string
+ *                               example: "string"
+ *                             height:
+ *                               type: number
+ *                               example: 0
+ *                             type:
+ *                               type: string
+ *                               example: "string"
+ *                             status:
+ *                               type: string
+ *                               example: "string"
+ *                             amount:
+ *                               type: number
+ *                               example: 0
+ *                             fee:
+ *                               type: number
+ *                               example: 0
+ *                             score:
+ *                               type: number
+ *                               example: 0
+ *                             counterparties:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 properties:
+ *                                   address:
+ *                                     type: string
+ *                                     example: "string"
+ *                                   amount:
+ *                                     type: number
+ *                                     example: 0
+ *                       nextScore:
+ *                         type: number
+ *                         example: 0
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/histories', getRecentTxHistories);
 
@@ -118,8 +264,66 @@ router.post('/histories', getRecentTxHistories);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: "string"
+ *                     tx_id:
+ *                       type: string
+ *                       example: "string"
+ *                     tx_hex:
+ *                       type: string
+ *                       example: "string"
+ *                     action_requested:
+ *                       type: string
+ *                       example: "string"
+ *                     status:
+ *                       type: string
+ *                       example: "string"
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "string"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "string"
+ *                     errors:
+ *                       type: string
+ *                       nullable: true
+ *                       example: null
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid ticketId
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/status/:ticketId', getTxStatus);
 
@@ -162,8 +366,43 @@ router.get('/status/:ticketId', getTxStatus);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     ticketId:
+ *                       type: string
+ *                       example: "string"
+ *                      
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/transfer', transfer);
 
@@ -220,8 +459,42 @@ router.post('/transfer', transfer);
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     ticketId:
+ *                       type: string
+ *                       example: "string"
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/transfer-multi', transferMulti);
 
@@ -250,14 +523,51 @@ router.post('/transfer-multi', transferMulti);
  *                   broadcast:
  *                     type: boolean
  *     responses:
- *       200:
- *         description: Raw transaction submitted successfully
+  *       200:
+ *         description: Transfer successful
  *         content:
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     ticketId:
+ *                       type: string
+ *                       example: "string"
+ *                     rawtx:
+ *                       type: string
+ *                       example: "string"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid rawTxHex or transfer options
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/submit-rawtx', submitRawTx);
 

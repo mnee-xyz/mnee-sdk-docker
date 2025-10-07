@@ -25,12 +25,47 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
- *                 address:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     address:
+ *                       type: string
+ *                       example: "string"
+ *                     amount:
+ *                       type: integer
+ *                       example: 0
+ *                     decimalAmount:
+ *                       type: number
+ *                       example: 0
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
  *                   type: string
- *                 balance:
- *                   type: number
+ *                   example: "string"
  *       400:
- *         description: Invalid address
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/:address', getBalance);
 
@@ -55,16 +90,51 @@ router.get('/:address', getBalance);
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   address:
- *                     type: string
- *                   balance:
- *                     type: number
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       address:
+ *                         type: string
+ *                         example: "string"
+ *                       amount:
+ *                         type: integer
+ *                         example: 0
+ *                       decimalAmount:
+ *                         type: number
+ *                         example: 0
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid addresses parameter
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/', getBalances);
 

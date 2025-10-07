@@ -8,50 +8,61 @@ For complete MNEE documentation and API reference, visit [https://docs.mnee.io](
 
 Instructions on how to get a copy of the project and running on your local machine.
 
-### Prerequisites
+### Prerequisites:
+### Ensure the following tools are installed on your system, or use Docker if you prefer(Refer Docker setup)
 
-```bash
-Node js v18+
-Npm/yarn
-Git
-```
-### Env  setup
-```bash
-PORT=<your-port>
-MNEE_ENV='sandbox'
-MNEE_API_URL=<Mnee sandbox Api Url>
-MNEE_API_KEY=<Mnee Api Key>
-```
-Explain the process step by step.
+### Install Node.js (v18 or higher) & npm.
 
+Windows:
+```bash
+# Download and install from official site
+https://nodejs.org/en/download/
+```
+macOS:
+```bash
+# Using Homebrew
+brew install node
+```
+Linux (Ubuntu):
+```bash
+sudo apt update
+sudo apt install -y nodejs npm
+```
+
+### Local Setup Guide:
+Clone the repository and install dependencies:
 ```bash
 https://github.com/mnee-xyz/mnee-sdk-docker.git
 cd mnee-sdk-docker
 npm install
 ```
 
-## Usage
+### Environment Setup:
 
-Start the server:
-
+Create a .env file in the root directory and add the following environment variables:
 ```bash
-node server.js
+PORT=<your-port>
+MNEE_ENV='sandbox'
+MNEE_API_URL=https://sandbox-proxy-api.mnee.net
+MNEE_API_KEY=54f1fd1688ba66a58a67675b82feb93e
 ```
+After setting up the environment file, start the server with:
+```bash
+node server.js 
+# or
+npm run start
+```
+Once the server is running, you can access the API Swagger documentation at:
+```
+http://localhost:<your-port>/api-docs
+```
+Use this Swagger UI to explore available endpoints, view request/response schemas, and test API calls directly.
 
-Docker setup:
-
+### Docker Setup:
+Run the application using Docker:
 ```bash
 docker-compose up --build
 ```
-
-### API Documentation
-
-Interactive Swagger documentation is available at:
-```
-http://localhost:5000/api-docs
-```
-
-Access this URL in your browser to explore all available endpoints, view request/response schemas, and test API calls directly from the documentation interface.
 
 ## Endpoints
 

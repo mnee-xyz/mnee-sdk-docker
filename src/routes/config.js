@@ -42,6 +42,19 @@ const router = express.Router();
  *                       type: number
  *                     tokenId:
  *                       type: string
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get('/', getConfig);
 
@@ -88,7 +101,31 @@ router.get('/', getConfig);
  *                     isValid:
  *                       type: boolean
  *       400:
- *         description: Invalid input data
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/validate', validateMneeTx);
 
@@ -108,7 +145,7 @@ router.post('/validate', validateMneeTx);
  *             properties:
  *               amount:
  *                 type: number
- *                 example: 1.5
+ *                 example: 0
  *                 description: Decimal amount to convert
  *     responses:
  *       200:
@@ -120,14 +157,39 @@ router.post('/validate', validateMneeTx);
  *               properties:
  *                 success:
  *                   type: boolean
+ *                   example: true
  *                 data:
  *                   type: object
  *                   properties:
  *                     atomicAmount:
  *                       type: number
- *                       example: 150000
+ *                       example: 0
  *       400:
- *         description: Invalid amount
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 error:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/to-atomic', toAtomicAmount);
 
@@ -147,7 +209,7 @@ router.post('/to-atomic', toAtomicAmount);
  *             properties:
  *               atomicAmount:
  *                 type: number
- *                 example: 150000
+ *                 example: 0
  *                 description: Atomic amount to convert
  *     responses:
  *       200:
@@ -164,9 +226,33 @@ router.post('/to-atomic', toAtomicAmount);
  *                   properties:
  *                     amount:
  *                       type: number
- *                       example: 1.5
+ *                       example: 0
  *       400:
- *         description: Invalid atomic amount
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 error:
+ *                   type: string
+ *                   example: "string"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.post('/from-atomic', fromAtomicAmount);
 

@@ -47,19 +47,95 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
- *                 utxos:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
+ *                       satoshis:
+ *                         type: number
+ *                         example: 0
+ *                       height:
+ *                         type: number
+ *                         example: 0
+ *                       idx:
+ *                         type: number
+ *                         example: 0
+ *                       score:
+ *                         type: number
+ *                         example: 0
+ *                       vout:
+ *                         type: number
+ *                         example: 0
+ *                       outpoint:
+ *                         type: string
+ *                         example: "string"
+ *                       script:
+ *                         type: string
  *                       txid:
  *                         type: string
- *                       vout:
- *                         type: integer
- *                       amount:
- *                         type: number
+ *                       data:
+ *                         type: object
+ *                         properties:
+ *                           bsv21:
+ *                             type: object
+ *                             properties:
+ *                               dec:
+ *                                 type: number
+ *                               amt:
+ *                                 type: number
+ *                               id:
+ *                                 type: string
+ *                               op:
+ *                                 type: string
+ *                               sym:
+ *                                 type: string
+ *                               icon:
+ *                                 type: string
+ *                           cosign:
+ *                             type: object
+ *                             properties:
+ *                               address:
+ *                                 type: string
+ *                               cosigner:
+ *                                 type: string
+ *                       owners:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       senders:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *       500:
+ *         description: internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid address or query params
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get("/:address", getUtxos);
 
@@ -91,22 +167,97 @@ router.get("/:address", getUtxos);
  *             schema:
  *               type: object
  *               properties:
- *                 utxos:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
+ *                       satoshis:
+ *                         type: number
+ *                         example: 0
+ *                       height:
+ *                         type: number
+ *                         example: 0
+ *                       idx:
+ *                         type: number
+ *                         example: 0
+ *                       score:
+ *                         type: number
+ *                         example: 0
+ *                       vout:
+ *                         type: number
+ *                         example: 0
+ *                       outpoint:
+ *                         type: string
+ *                         example: "string"
+ *                       script:
+ *                         type: string
  *                       txid:
  *                         type: string
- *                       vout:
- *                         type: integer
- *                       amount:
- *                         type: number
+ *                       data:
+ *                         type: object
+ *                         properties:
+ *                           bsv21:
+ *                             type: object
+ *                             properties:
+ *                               dec:
+ *                                 type: number
+ *                               amt:
+ *                                 type: number
+ *                               id:
+ *                                 type: string
+ *                               op:
+ *                                 type: string
+ *                               sym:
+ *                                 type: string
+ *                               icon:
+ *                                 type: string
+ *                           cosign:
+ *                             type: object
+ *                             properties:
+ *                               address:
+ *                                 type: string
+ *                               cosigner:
+ *                                 type: string
+ *                       owners:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       senders:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *       500:
+ *         description: internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Missing amount parameter or invalid address
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 router.get("/:address/enough", getEnoughUtxos);
-
 /**
  * @swagger
  * /api/utxos/{address}/all:
@@ -129,19 +280,89 @@ router.get("/:address/enough", getEnoughUtxos);
  *             schema:
  *               type: object
  *               properties:
- *                 utxos:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
  *                   type: array
  *                   items:
  *                     type: object
  *                     properties:
+ *                       satoshis:
+ *                         type: number
+ *                       height:
+ *                         type: number
+ *                       idx:
+ *                         type: number
+ *                       score:
+ *                         type: number
+ *                       vout:
+ *                         type: number
+ *                       outpoint:
+ *                         type: string
+ *                       script:
+ *                         type: string
  *                       txid:
  *                         type: string
- *                       vout:
- *                         type: integer
- *                       amount:
- *                         type: number
+ *                       data:
+ *                         type: object
+ *                         properties:
+ *                           bsv21:
+ *                             type: object
+ *                             properties:
+ *                               dec:
+ *                                 type: number
+ *                               amt:
+ *                                 type: number
+ *                               id:
+ *                                 type: string
+ *                               op:
+ *                                 type: string
+ *                               sym:
+ *                                 type: string
+ *                               icon:
+ *                                 type: string
+ *                           cosign:
+ *                             type: object
+ *                             properties:
+ *                               address:
+ *                                 type: string
+ *                               cosigner:
+ *                                 type: string
+ *                       owners:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       senders:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *       500:
+ *         description: internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  *       400:
- *         description: Invalid address supplied
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "string"
  */
 
 router.get("/:address/all", getAllUtxos);
