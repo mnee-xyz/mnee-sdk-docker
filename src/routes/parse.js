@@ -130,7 +130,7 @@ router.get('/:txid', parseTx);
  *                 example: "your TxHex"
  *               includeRaw:
  *                 type: boolean
- *                 example: true
+ *                 example: false
  *     responses:
  *       200:
  *         description: Successfully parsed raw transaction
