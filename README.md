@@ -32,8 +32,8 @@ sudo apt install -y nodejs npm
 ### Local Setup Guide:
 Clone the repository and install dependencies:
 ```bash
-https://github.com/mnee-xyz/mnee-sdk-docker.git
-cd mnee-sdk-docker
+https://github.com/mnee-xyz/mnee-1sat-sdk-docker.git
+cd mnee-1sat-sdk-docker
 npm install
 ```
 

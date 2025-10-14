@@ -10,6 +10,13 @@ export const getUtxos = async (req, res, next) => {
       return res.status(400).json({ success: false, message: "Address is required" });
     }
 
+    if (typeof req.query.amount !== 'undefined') {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid Url"
+      });
+    }
+    
     const utxos = await mneeService.getUtxos(address, page ? Number(page) : undefined, size ? Number(size) : undefined, order);
 
     res.json({ success: true, data: utxos });
