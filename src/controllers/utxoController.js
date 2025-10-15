@@ -25,7 +25,11 @@ export const getUtxos = async (req, res, next) => {
     const badRequestMessages = [
       "Invalid Bitcoin address",
       "Invalid API key",
-      "No valid Bitcoin addresses provided"
+      "No valid Bitcoin addresses provided",
+      "Invalid page:",
+      "Invalid size:",
+      "Invalid order:"
+
     ];
     if (badRequestMessages.some(msg => error.message.includes(msg))) {
       error.statusCode = 400;

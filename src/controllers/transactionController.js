@@ -19,7 +19,8 @@ export const getRecentTxHistory = async (req, res, next) => {
     const badRequestMessages = [
       "Invalid Bitcoin address",
       "Invalid fromScore:",
-      "Invalid limit:"
+      "Invalid limit:",
+      "Invalid order:"
     ];
     if (badRequestMessages.some(msg => error.message.includes(msg))) {
       error.statusCode = 400;
@@ -45,7 +46,8 @@ export const getRecentTxHistories = async (req, res, next) => {
     const badRequestMessages = [
       "You must pass at least 1 valid address",
       "Invalid fromScore:",
-      "Invalid limit:"
+      "Invalid limit:",
+      "Invalid order:"
     ];
     if (badRequestMessages.some(msg => error.message.includes(msg))) {
       error.statusCode = 400;
