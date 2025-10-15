@@ -8,7 +8,7 @@ import {
   submitRawTx
 } from '../controllers/transactionController.js';
 
-const router = express.Router();
+const router = express.Router({caseSensitive: true});
 
 /**
  * @swagger

@@ -6,7 +6,7 @@ import {
   fromAtomicAmount
 } from '../controllers/configController.js';
 
-const router = express.Router();
+const router = express.Router({caseSensitive: true});
 
 /**
  * @swagger

@@ -6,7 +6,7 @@ import {
   parseCosignerScripts
 } from '../controllers/parseController.js'
 
-const router = express.Router();
+const router = express.Router({caseSensitive: true});
 
 /**
  * @swagger

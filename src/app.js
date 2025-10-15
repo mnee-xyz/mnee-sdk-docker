@@ -11,7 +11,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 
 const app = express();
-
+app.set('case sensitive routing', true)
 app.use(express.json());
 
 // Swagger setup

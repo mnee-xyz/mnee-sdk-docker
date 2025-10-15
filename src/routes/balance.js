@@ -1,7 +1,7 @@
 import express from 'express';
 import { getBalance, getBalances } from '../controllers/balanceController.js';
 
-const router = express.Router();
+const router = express.Router({caseSensitive: true});
 
 /**
  * @swagger
