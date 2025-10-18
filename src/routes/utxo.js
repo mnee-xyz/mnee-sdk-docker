@@ -1,11 +1,11 @@
 import express from "express";
 import { getUtxos, getEnoughUtxos, getAllUtxos } from "../controllers/utxoController.js";
 
-const router = express.Router();
+const router = express.Router({caseSensitive: true});
 
 /**
  * @swagger
- * /api/utxos/{address}:
+ * /api/utxos/paginated/{address}:
  *   get:
  *     summary: Get paginated UTXOs for a given address
  *     tags:
@@ -137,7 +137,7 @@ const router = express.Router();
  *                   type: string
  *                   example: "string"
  */
-router.get("/:address", getUtxos);
+router.get("/paginated/:address", getUtxos);
 
 /**
  * @swagger
