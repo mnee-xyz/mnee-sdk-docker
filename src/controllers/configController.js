@@ -86,12 +86,25 @@ export const validateMneeTx = async (req, res, next) => {
 // Convert to atomic amount
 export const toAtomicAmount = (req, res, next) => {
   try {
-    const { amount } = req.body;
-
-    if (typeof amount !== 'number') {
+    if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({
         success: false,
-        error: 'Amount must be a number'
+        error: "request body can not be empty"
+      });
+    }
+    const { amount } = req.body;
+
+    if (typeof amount !== 'number' || Number.isNaN(amount)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Amount must be a valid number'
+      });
+    }
+
+    if(amount < 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Amount can not be negative"
       });
     }
 
@@ -106,12 +119,24 @@ export const toAtomicAmount = (req, res, next) => {
 // Convert from atomic amount
 export const fromAtomicAmount = (req, res, next) => {
   try {
-    const { atomicAmount } = req.body;
-
-    if (typeof atomicAmount !== 'number') {
+    if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({
         success: false,
-        error: 'Atomic amount must be a number'
+        error: "request body can not be empty"
+      });
+    }
+    const { atomicAmount } = req.body;
+
+    if (typeof atomicAmount !== 'number' || Number.isNaN(atomicAmount)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Atomic amount must be a valid number'
+      });
+    }
+    if(atomicAmount < 0) {
+      return res.status(400).json({
+        success: false,
+        message: "atomicAmount can not be negative"
       });
     }
 

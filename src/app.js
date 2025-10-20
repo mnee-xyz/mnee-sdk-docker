@@ -25,6 +25,15 @@ app.use((req, res, next) => {
     }
     next();
 });
+app.use((err, req, res, next) => {
+  if(err instanceof SyntaxError && 'body' in err) {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid Json format in request body'
+    });
+  }
+  next(err)
+});
 
 // Swagger setup
 const specs = swaggerJsdoc(swaggerOptions);
