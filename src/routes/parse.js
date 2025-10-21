@@ -96,18 +96,14 @@ const router = express.Router({caseSensitive: true});
  *     CosignerScript:
  *       type: object
  *       properties:
- *         publicKey:
+ *         cosigner:
  *           type: string
- *           description: Public key of the cosigner
- *           example: "02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737"
- *         signature:
- *           type: string
- *           description: Signature from the cosigner (if present)
- *           example: "3045022100..."
+ *           description: cosigner identifier
+ *           example: "02bed35e894cc41cc9879b4002ad03d33533b615c1b476068c8dd6822a09f93f6c"
  *         address:
  *           type: string
  *           description: Address derived from the public key
- *           example: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+ *           example: "1FUTPrD61CjeiymauPy1n2B4CKj4vw4Dno"
  */
 
 /**
@@ -268,6 +264,13 @@ router.post('/from-raw', parseTxFromRaw);
  *     description: |
  *       Extracts inscription data from a Bitcoin script.
  *       This is useful for analyzing on-chain data and understanding transaction metadata.
+ * 
+ *       ### Use Cases
+ *       - Analyze File Inscriptions
+ *       - Extract Inscription Data
+ * 
+ *       ### Script Format
+ *       Scripts should be in BSV script chunk format.
  *       
  *     tags:
  *       - Parse
@@ -281,9 +284,46 @@ router.post('/from-raw', parseTxFromRaw);
  *               - script
  *             properties:
  *               script:
- *                 type: string
- *                 description: Hexadecimal Bitcoin script
- *                 example: "6a4c507b2270223a226273762d3230222c226f70223a226465706c6f79222c227469636b223a226d6e6565222c226d6178223a223231303030303030222c226c696d223a2231303030227d"
+ *                 type: object
+ *                 description: Bitcoin script in chunks format
+ *                 required:
+ *                   - chunks
+ *                 properties:
+ *                   chunks:
+ *                     type: array
+ *                     description: Array of script operation chunks
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         op:
+ *                           type: integer
+ *                           description: Operation code
+ *                         data:
+ *                           type: array
+ *                           description: Optional data array for the operation
+ *                           items:
+ *                             type: integer
+ *                             minimum: 0
+ *                             maximum: 255
+ *                 example:
+ *                   chunks:
+ *                     - op: 0
+ *                     - op: 99
+ *                     - op: 3
+ *                       data: [111, 114, 100]
+ *                     - op: 81
+ *                     - op: 18
+ *                       data: [97,112,112,108,105,99,97,116,105,111,110,47,98,115,118,45,50,48]
+ *                     - op: 0
+ *                     - op: 76
+ *                       data: [123,34,112,34,58,34,98,115,118,45,50,48,34,44,34,111,112,34,58,34,100,101,112,108,111,121,43,109,105,110,116,34,44,34,115,121,109,34,58,34,77,78,69,69,34,44,34,105,99,111,110,34,58,34,57,99,55,102,55,102,49,55,56,56,99,54,51,56,50,100,53,97,99,55,51,55,97,52,48,53,50,51,51,52,99,102,49,53,48,98,53,50,100,49,101,52,54,99,52,56,52,101,99,102,98,49,100,54,101,48,48,49,56,52,102,50,54,51,95,48,34,44,34,97,109,116,34,58,34,49,56,52,52,54,55,52,52,48,55,51,55,48,57,53,48,48,48,48,48,48,34,44,34,100,101,99,34,58,34,53,34,125]
+ *                     - op: 104
+ *                     - op: 118
+ *                     - op: 169
+ *                     - op: 20
+ *                       data: [179,166,123,100,3,9,79,34,165,109,227,179,2,117,26,214,191,13,106,221]
+ *                     - op: 136
+ *                     - op: 173
  *     responses:
  *       200:
  *         description: Inscription parsed successfully
@@ -336,7 +376,17 @@ router.post('/inscription', parseInscription);
  * @swagger
  * /api/parse/cosigner-scripts:
  *   post:
- *     summary: Parse cosigner scripts
+ *     summary: Parse Cosigner Scripts
+ *     description: |
+ *       Extracts cosigner public keys and addresses from an array of scripts.
+ *       
+ *       ### Use Cases
+ *       - Verify Cosigner Authorization
+ *       - Extract Metadata from Transactions
+ *       
+ *       ### Script Format
+ *       Scripts should be in BSV script chunk format.
+ *       
  *     tags:
  *       - Parse
  *     requestBody:
@@ -345,12 +395,55 @@ router.post('/inscription', parseInscription);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - scripts
  *             properties:
  *               scripts:
  *                 type: array
+ *                 description: Array of Bitcoin scripts in chunks format
  *                 items:
- *                   type: string
- *                 example: ["script1", "script2"]
+ *                   type: object
+ *                   required:
+ *                     - chunks
+ *                   properties:
+ *                     chunks:
+ *                       type: array
+ *                       description: Array of script operation chunks
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           op:
+ *                             type: integer
+ *                             description: Operation code
+ *                           data:
+ *                             type: array
+ *                             description: Optional data array for the operation
+ *                             items:
+ *                               type: integer
+ *                               minimum: 0
+ *                               maximum: 255
+ *                 example:
+ *                   - chunks:
+ *                       - op: 0
+ *                       - op: 99
+ *                       - data: [111, 114, 100]
+ *                         op: 3
+ *                       - op: 81
+ *                       - data: [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 98, 115, 118, 45, 50, 48]
+ *                         op: 18
+ *                       - op: 0
+ *                       - data: [123, 34, 112, 34, 58, 34, 98, 115, 118, 45, 50, 48, 34, 44, 34, 111, 112, 34, 58, 34, 116, 114, 97, 110, 115, 102, 101, 114, 34, 44, 34, 97, 109, 116, 34, 58, 34, 53, 48, 48, 48, 48, 48, 48, 34, 44, 34, 105, 100, 34, 58, 34, 56, 51, 51, 97, 55, 55, 50, 48, 57, 54, 54, 97, 50, 97, 52, 51, 53, 100, 98, 50, 56, 100, 57, 54, 55, 51, 56, 53, 101, 56, 97, 97, 55, 50, 56, 52, 98, 54, 49, 53, 48, 101, 98, 98, 51, 57, 52, 56, 50, 99, 99, 53, 50, 50, 56, 98, 55, 51, 101, 49, 55, 48, 51, 102, 95, 48, 34, 125]
+ *                         op: 76
+ *                       - op: 104
+ *                       - op: 118
+ *                       - op: 169
+ *                       - data: [158, 195, 6, 69, 16, 60, 33, 80, 28, 20, 191, 134, 76, 84, 249, 83, 221, 205, 167, 190]
+ *                         op: 20
+ *                       - op: 136
+ *                       - op: 173
+ *                       - data: [2, 190, 211, 94, 137, 76, 196, 28, 201, 135, 155, 64, 2, 173, 3, 211, 53, 51, 182, 21, 193, 180, 118, 6, 140, 141, 214, 130, 42, 9, 249, 63, 108]
+ *                         op: 33
+ *                       - op: 172
  *     responses:
  *       200:
  *         description: Successfully parsed cosigner scripts
@@ -364,7 +457,8 @@ router.post('/inscription', parseInscription);
  *                   example: true
  *                 data:
  *                   type: array
- *                   example: []
+ *                   items:
+ *                     $ref: '#/components/schemas/CosignerScript'
  *       400:
  *         description: Bad Request
  *         content:
