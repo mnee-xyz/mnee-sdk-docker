@@ -11,8 +11,29 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 
 const app = express();
-
+app.set('case sensitive routing', true)
 app.use(express.json());
+app.use((req, res, next) => {
+    const contentType = req.headers['content-type'] || '';
+    if (['POST'].includes(req.method)) {
+      if (!contentType.includes('application/json')) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid Content-Type. Expected application/json',
+        });
+      }
+    }
+    next();
+});
+app.use((err, req, res, next) => {
+  if(err instanceof SyntaxError && 'body' in err) {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid Json format in request body'
+    });
+  }
+  next(err)
+});
 
 // Swagger setup
 const specs = swaggerJsdoc(swaggerOptions);

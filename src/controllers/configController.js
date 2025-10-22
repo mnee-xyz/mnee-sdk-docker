@@ -16,6 +16,60 @@ export const validateMneeTx = async (req, res, next) => {
   try {
     const { rawTxHex, request } = req.body;
 
+    if(!rawTxHex || typeof rawTxHex !== 'string' || rawTxHex.trim() === '') {
+      return res.status(400).json({
+        success: false,
+        error: "Transaction Hex is required"
+      });
+    }
+    if (!/^[0-9a-fA-F]+$/.test(rawTxHex.trim())) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Invalid transaction hex format' 
+      });
+    }
+
+    if (request !== undefined) {
+      if (!Array.isArray(request)) {
+        return res.status(400).json({ 
+          success: false, 
+          error: 'Request must be an array' 
+        });
+      }
+      
+      if (request.length === 0) {
+        return res.status(400).json({ 
+          success: false, 
+          error: 'Request array cannot be empty' 
+        });
+      }
+
+      for (let i = 0; i < request.length; i++) {
+        const req = request[i];
+        
+        if (!req || typeof req !== 'object') {
+          return res.status(400).json({ 
+            success: false, 
+            error: `Invalid request item at index ${i}` 
+          });
+        }
+        
+        if (!req.address || typeof req.address !== 'string' || req.address.trim() === '') {
+          return res.status(400).json({ 
+            success: false, 
+            error: `Request address is required at index ${i}` 
+          });
+        }
+        
+        if (typeof req.amount !== 'number' || req.amount <= 0 || !isFinite(req.amount)) {
+          return res.status(400).json({ 
+            success: false, 
+            error: `Amount should be positive number at index ${i}` 
+          });
+        }
+      }
+    }
+
     const isValid = await mneeService.validateMneeTx(rawTxHex, request);
     res.json({ success: true, data: { isValid } });
   } catch (error) {
@@ -32,12 +86,25 @@ export const validateMneeTx = async (req, res, next) => {
 // Convert to atomic amount
 export const toAtomicAmount = (req, res, next) => {
   try {
-    const { amount } = req.body;
-
-    if (typeof amount !== 'number') {
+    if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({
         success: false,
-        error: 'Amount must be a number'
+        error: "request body can not be empty"
+      });
+    }
+    const { amount } = req.body;
+
+    if (typeof amount !== 'number' || Number.isNaN(amount)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Amount must be a valid number'
+      });
+    }
+
+    if(amount < 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Amount can not be negative"
       });
     }
 
@@ -52,12 +119,24 @@ export const toAtomicAmount = (req, res, next) => {
 // Convert from atomic amount
 export const fromAtomicAmount = (req, res, next) => {
   try {
-    const { atomicAmount } = req.body;
-
-    if (typeof atomicAmount !== 'number') {
+    if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({
         success: false,
-        error: 'Atomic amount must be a number'
+        error: "request body can not be empty"
+      });
+    }
+    const { atomicAmount } = req.body;
+
+    if (typeof atomicAmount !== 'number' || Number.isNaN(atomicAmount)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Atomic amount must be a valid number'
+      });
+    }
+    if(atomicAmount < 0) {
+      return res.status(400).json({
+        success: false,
+        message: "atomicAmount can not be negative"
       });
     }
 

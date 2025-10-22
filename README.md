@@ -74,9 +74,9 @@ Get the balances for multiple addresses:
 ```bash
 curl "http://<YOUR_SERVER_URL>/api/balance?addresses=your-address1,your-address2"
 ```
-Get the UTXOs for a given address:
+Get the Paginated UTXOs for a given address:
 ```bash
-curl "http://<YOUR_SERVER_URL>/api/utxos/your-address"
+curl "http://<YOUR_SERVER_URL>/api/utxos/paginated/your-address"
 ```
 Get the UTXOs for a given address that have enough balance to cover the total atomic amount:
 ```bash
