@@ -93,7 +93,8 @@ export const transfer = async (req, res, next) => {
         "Invalid WIF key",
         "Invalid amount for",
         "minimum transfer amount is",
-        "Invalid amount: total must be greater than 0"
+        "Invalid amount: total must be greater than 0",
+        "Insufficient MNEE balance. Max transfer amount is"
       ];
       if (badRequestMessages.some(msg => error.message.includes(msg))) {
         error.statusCode = 400;
@@ -122,7 +123,8 @@ export const transfer = async (req, res, next) => {
         "Invalid WIF key",
         "Invalid amount for",
         "minimum transfer amount is",
-        "Invalid amount: total must be greater than 0"
+        "Invalid amount: total must be greater than 0",
+        "Insufficient MNEE balance. Max transfer amount is"
       ];
       if (badRequestMessages.some(msg => error.message.includes(msg))) {
         error.statusCode = 400;

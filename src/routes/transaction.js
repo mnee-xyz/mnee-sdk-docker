@@ -444,7 +444,7 @@ router.get('/status/:ticketId', getTxStatus);
  *               wif:
  *                 type: string
  *                 description: Wallet Import Format private key of the sender
- *                 example: "L1z7N5Qkpkz93odzExb8DNyee2CRQAXsqWX3WQb2hpsbGsWAPeb1"
+ *                 example: "L1dRKo7sZZJijNyXbPTSJGc8DCVDcPLtsyhNSSVvcBrcTMDjnfuD"
  *               transferOptions:
  *                 $ref: '#/components/schemas/TransferOptions'
  *     responses:
@@ -551,7 +551,7 @@ router.post('/transfer', transfer);
  *                         wif:
  *                           type: string
  *                           description: Private key (WIF format) that controls this UTXO
- *                           example: "L1z7N5Qkpkz93odzExb8DNyee2CRQAXsqWX3WQb2hpsbGsWAPeb1"
+ *                           example: "L1dRKo7sZZJijNyXbPTSJGc8DCVDcPLtsyhNSSVvcBrcTMDjnfuD"
  *                   recipients:
  *                     type: array
  *                     description: Array of recipient addresses and amounts
