@@ -423,6 +423,11 @@ router.get('/status/:ticketId', getTxStatus);
  *       1. Submit transfer with WIF and recipient details
  *       2. Receive a ticketId in response if broadcast is true
  *       3. Receive txhex if broadcast is false
+ * 
+ *       **Note:**
+ *       - When `broadcast: true` (transaction brodcasted directly, and ticketId is returned for tracking transactions.)
+ *       - When `broadcast: false` (Returns the signed txHex, You can manually broadcast the transaction using /submit-rawtx endpoint.)
+ * 
  *     tags:
  *       - Transaction
  *     requestBody:
@@ -510,6 +515,10 @@ router.post('/transfer', transfer);
  *       - You must know the exact UTXO details (txid, vout)
  *       - Each input needs its corresponding WIF key
  *       - Must specify a change address for leftover funds
+ * 
+ *       **Note:**
+ *       - When `broadcast: true` (transaction brodcasted directly, and ticketId is returned for tracking transactions.)
+ *       - When `broadcast: false` (Returns the signed txHex, You can manually broadcast the transaction using /submit-rawtx endpoint.)
  *     tags:
  *       - Transaction
  *     requestBody:
@@ -542,7 +551,7 @@ router.post('/transfer', transfer);
  *                         txid:
  *                           type: string
  *                           description: Transaction ID containing the UTXO (64-character hex string)
- *                           example: "e85757f2f327412cf47d5edb293ba09a14bef647d0e40b2369cefc919b6890c5"
+ *                           example: "21d50aec39cca0df132405340d8139217582791efcf48f56ceb93782dd6d8971"
  *                         vout:
  *                           type: number
  *                           description: Output index within the transaction
@@ -574,7 +583,7 @@ router.post('/transfer', transfer);
  *                   changeAddress:
  *                     type: string
  *                     description: Address to receive any leftover funds after paying recipients and fees
- *                     example: "1525VDfA8swjDMLHjLRCCmPFsTJToarrA2"
+ *                     example: "18kMmJ4F6uYPYuQ7o2C2GfsVKWu5fE9ska"
  *               transferOptions:
  *                 $ref: '#/components/schemas/TransferOptions'
  *     responses:
