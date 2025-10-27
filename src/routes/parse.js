@@ -5,6 +5,7 @@ import {
   parseInscription,
   parseCosignerScripts
 } from '../controllers/parseController.js'
+import { validateQueryParams } from '../middleware/validateQueryParams.js';
 
 const router = express.Router({caseSensitive: true});
 
@@ -181,7 +182,7 @@ const router = express.Router({caseSensitive: true});
  *                   type: string
  *                   example: "string"
  */
-router.get('/:txid', parseTx);
+router.get('/:txid', validateQueryParams(['includeRaw']), parseTx);
 
 /**
  * @swagger

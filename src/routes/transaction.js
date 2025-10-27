@@ -7,6 +7,7 @@ import {
   transferMulti,
   submitRawTx
 } from '../controllers/transactionController.js';
+import { validateQueryParams } from '../middleware/validateQueryParams.js';
 
 const router = express.Router({caseSensitive: true});
 
@@ -237,7 +238,7 @@ const router = express.Router({caseSensitive: true});
  *                   type: string
  *                   example: "string"
  */
-router.get('/:address', getRecentTxHistory);
+router.get('/:address', validateQueryParams(['fromScore', 'limit', 'order']), getRecentTxHistory);
 
 /**
  * @swagger
