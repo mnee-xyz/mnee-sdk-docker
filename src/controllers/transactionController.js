@@ -149,7 +149,6 @@ export const transfer = async (req, res, next) => {
     } catch (error) {
       console.error('Error submitting raw transaction:', error);
       const badRequestMessages = [
-        "Failed to submit transaction: 400",
         "Callback URL cannot be provided when",
         "Raw transaction is required"
       ];

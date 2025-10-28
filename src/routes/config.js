@@ -156,6 +156,7 @@ router.get('/', getConfig);
  *       **Deep Validation (if request array provided)**:
  *       - All specified recipients are present in outputs
  *       - Total output amounts are correct
+ *       - Amount given in decimal values only
  *       
  *     tags:
  *       - Config

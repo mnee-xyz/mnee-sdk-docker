@@ -1,5 +1,6 @@
 import express from 'express';
 import { getBalance, getBalances } from '../controllers/balanceController.js';
+import { validateQueryParams } from '../middleware/validateQueryParams.js';
 
 const router = express.Router({caseSensitive: true});
 
@@ -169,6 +170,6 @@ router.get('/:address', getBalance);
  *                   type: string
  *                   example: "string"
  */
-router.get('/', getBalances);
+router.get('/', validateQueryParams(['addresses']), getBalances);
 
 export default router;

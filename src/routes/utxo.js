@@ -1,5 +1,6 @@
 import express from "express";
 import { getUtxos, getEnoughUtxos, getAllUtxos } from "../controllers/utxoController.js";
+import { validateQueryParams } from "../middleware/validateQueryParams.js";
 
 const router = express.Router({caseSensitive: true});
 
@@ -202,7 +203,7 @@ const router = express.Router({caseSensitive: true});
  *                   type: string
  *                   example: "string"
  */
-router.get("/paginated/:address", getUtxos);
+router.get("/paginated/:address", validateQueryParams(['page', 'size', 'order']), getUtxos);
 
 /**
  * @swagger
@@ -278,7 +279,7 @@ router.get("/paginated/:address", getUtxos);
  *                   type: string
  *                   example: "string"
  */
-router.get("/:address/enough", getEnoughUtxos);
+router.get("/:address/enough", validateQueryParams(['amount']), getEnoughUtxos);
 /**
  * @swagger
  * /api/utxos/{address}/all:
