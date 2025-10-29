@@ -6,6 +6,10 @@ export const getRecentTxHistory = async (req, res, next) => {
     const { address } = req.params;
     const { fromScore, limit, order } = req.query;
 
+     if (limit < 1 ) {
+      return res.status(400).json({ success: false, message: 'Invalid limit. Must be positive integer (>=1)' });
+    }
+
     const history = await mneeService.getRecentTxHistory(
       address,
       Number(fromScore) || undefined,
