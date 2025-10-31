@@ -157,9 +157,9 @@ const router = express.Router({caseSensitive: true});
  *           default: asc
  *         description: |
  *           Sort order by UTXO value:
- *           - `asc`: Smallest UTXOs first (good for spending dust)
+ *           - `asc`: Oldest UTXOs first
  * 
- *           - `desc`: Largest UTXOs first (good for finding big coins)
+ *           - `desc`: Newest UTXOs first
  *         example: "desc"
  *     responses:
  *       200:
